@@ -18,7 +18,8 @@ public class Database {
     public static ArrayList<RoomType> getRoomTypes() { return roomTypes; }
     public static ArrayList<Amenity> getAmenities() { return amenities; }
     public static ArrayList<Room> getRooms() { return rooms; }
-
+    public static ArrayList<Reservation> getReservations() { return reservations; }
+    public static ArrayList<Invoice> getInvoices() { return invoices; }
     public static void initialize() {
         //  Initialize  Amenities
         Amenity wifi = new Amenity("High-Speed Wi-Fi");

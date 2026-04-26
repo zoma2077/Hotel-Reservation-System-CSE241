@@ -237,35 +237,27 @@ public class main {
                         int rn = Integer.parseInt(input.nextLine().trim());
                         System.out.print("Days: ");
                         int dy = Integer.parseInt(input.nextLine().trim());
-
                         Room r = Database.getRoomByNumber(rn);
-                        if (r != null) {
-                            System.out.println("Booking feature is under construction");
-                            // loggedIn.makeReservation(r, dy);
-                        } else {
-                            System.out.println("Room not found!");
-                        }
-                    } catch (NumberFormatException e) {
-                        System.out.println("Invalid input. Please enter numbers for Room # and Days.");
-                    }
+                        if (r != null) loggedIn.makeReservation(r, dy);
+                        else System.out.println("Room not found!");
+                    } catch (Exception e) { System.out.println("Invalid input."); }
                     break;
                 case 3:
-                    System.out.println("Reservation view is under construction");
-                    // loggedIn.viewreservation();
+                    loggedIn.viewMyReservations();
                     break;
                 case 4:
-                    System.out.println("Cancellation is under construction");
-                    // loggedIn.cancelreservation();
+                    System.out.print("Enter Room # to cancel: ");
+                    try {
+                        int rNum = Integer.parseInt(input.nextLine().trim());
+                        loggedIn.cancelReservation(rNum);
+                    } catch (Exception e) { System.out.println("Invalid input."); }
                     break;
                 case 5:
                     System.out.print("Amount to pay: $");
                     try {
                         double amt = Double.parseDouble(input.nextLine().trim());
-                        System.out.println("Payment feature is under construction");
-                        // loggedIn.payinvoice(amt);
-                    } catch (NumberFormatException e) {
-                        System.out.println("Invalid amount format.");
-                    }
+                        loggedIn.payInvoice(amt);
+                    } catch (Exception e) { System.out.println("Invalid amount."); }
                     break;
                 case 6:
                     active = false;
