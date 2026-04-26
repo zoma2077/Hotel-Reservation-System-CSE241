@@ -8,8 +8,8 @@ public class Database {
     private static java.util.ArrayList<Room> rooms = new java.util.ArrayList<>();
     private static java.util.ArrayList<RoomType> roomTypes = new java.util.ArrayList<>();
     private static java.util.ArrayList<Amenity> amenities = new java.util.ArrayList<>();
-    private static ArrayList<Reservation> reservations = new ArrayList<>();
-    private static ArrayList<Invoice> invoices = new ArrayList<>();
+    private static java.util.ArrayList<Reservation> reservations = new java.util.ArrayList<>();
+    private static java.util.ArrayList<Invoice> invoices = new java.util.ArrayList<>();
 
 
     //  Getters
@@ -18,7 +18,8 @@ public class Database {
     public static ArrayList<RoomType> getRoomTypes() { return roomTypes; }
     public static ArrayList<Amenity> getAmenities() { return amenities; }
     public static ArrayList<Room> getRooms() { return rooms; }
-
+    public static ArrayList<Reservation> getReservations() { return reservations; }
+    public static ArrayList<Invoice> getInvoices() { return invoices; }
     public static void initialize() {
         //  Initialize  Amenities
         Amenity wifi = new Amenity("High-Speed Wi-Fi");
