@@ -8,8 +8,8 @@ public class Database {
     private static java.util.ArrayList<Room> rooms = new java.util.ArrayList<>();
     private static java.util.ArrayList<RoomType> roomTypes = new java.util.ArrayList<>();
     private static java.util.ArrayList<Amenity> amenities = new java.util.ArrayList<>();
-    private static java.util.ArrayList<Reservation> reservations = new java.util.ArrayList<>();
-    private static java.util.ArrayList<Invoice> invoices = new java.util.ArrayList<>();
+    private static ArrayList<Reservation> reservations = new ArrayList<>();
+    private static ArrayList<Invoice> invoices = new ArrayList<>();
 
 
     //  Getters
