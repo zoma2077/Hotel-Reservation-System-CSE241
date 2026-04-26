@@ -21,7 +21,21 @@ public abstract class Staff {
     public String getUsername() { return username; }
     public String getPassword() { return password; }
     public exceptions.Job getJob() { return job; }
-
+    // --- Room CRUD ---
+    public void createRoom(int number, RoomType type) {
+        Database.getRooms().add(new Room(number, type));
+    }
+    public void readRooms() {
+        for (Room r : Database.getRooms()) System.out.println("Room " + r.getRoomNumber());
+    }
+    public void updateRoom(int number, boolean available) {
+        Room r = Database.getRoomByNumber(number);
+        if (r != null) r.setAvailable(available);
+    }
+    public void deleteRoom(int number) {
+        Room r = Database.getRoomByNumber(number);
+        if (r != null) Database.getRooms().remove(r);
+    }
     //  STAFF REGISTER  METHOD
     public static Staff register() {
         System.out.println("\n--- Staff Registration ---");
@@ -196,6 +210,7 @@ class Admin extends Staff {
             System.out.println("[Error] Amenity not found.");
         }
     }
+
 
     public void createRoomType(int id, String name, double price) {
         Database.getRoomTypes().add(new RoomType(id, name, price));
