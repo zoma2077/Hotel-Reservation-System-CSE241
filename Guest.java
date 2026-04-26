@@ -21,7 +21,49 @@ public class Guest implements Payable {
         this.gender = gender;
         this.roomPreferences = roomPreferences;
     }
+    public void makeReservation(Room room, int days) {
+        if (room.isAvailable()) {
+            Reservation res = new Reservation(this, room, days);
+            Database.getReservations().add(res);
+            room.setAvailable(false);
+            System.out.println("[Success] Room " + room.getRoomNumber() + " booked for " + days + " days.");
+        } else {
+            System.out.println("[Error] Room is already occupied.");
+        }
+    }
 
+    public void viewMyReservations() {
+        System.out.println("\n--- Your Reservations ---");
+        boolean hasRes = false;
+        for (Reservation r : Database.getReservations()) {
+            if (r.getGuest().getUsername().equals(this.username)) {
+                System.out.println("Room: " + r.getRoom().getRoomNumber() + " | Status: " + r.getStatus() + " | Duration: " + r.getDays() + " days");
+                hasRes = true;
+            }
+        }
+        if (!hasRes) System.out.println("No active reservations found.");
+    }
+
+    public void cancelReservation(int roomNum) {
+        for (Reservation r : Database.getReservations()) {
+            if (r.getGuest().getUsername().equals(this.username) && r.getRoom().getRoomNumber() == roomNum) {
+                r.setStatus(exceptions.ReservationStatus.CANCELLED);
+                r.getRoom().setAvailable(true);
+                System.out.println("[Success] Reservation for room " + roomNum + " cancelled.");
+                return;
+            }
+        }
+        System.out.println("[Error] Reservation not found.");
+    }
+
+    public void payInvoice(double amount) {
+        if (amount <= balance) {
+            balance -= amount;
+            System.out.println("[Success] Paid $" + amount + ". New balance: $" + balance);
+        } else {
+            System.out.println("[Error] Insufficient balance.");
+        }
+    }
     public static Guest register() {
         Guest newUser = new Guest(fillUsername(), fillPassword(), fillDateOfBirth(), fillBalance(), fillAddress(), fillGender(), fillRoomPreferences());
         Database.getGuests().add(newUser); // Updated to use getter
@@ -34,7 +76,7 @@ public class Guest implements Payable {
         System.out.print("Enter password: ");
         String password = input.nextLine();
 
-        for (Guest g : Database.getGuests()) { // Updated to use getter
+        for (Guest g : Database.getGuests()) {
             if (g.username.equals(username) && g.password.equals(password)) {
                 System.out.println("Login successful!");
                 return g;
@@ -151,10 +193,9 @@ public class Guest implements Payable {
 
     private static String fillAddress() {
         System.out.println("Enter your country:"); String country = input.nextLine();
-        System.out.println("Enter your province:"); String province = input.nextLine();
         System.out.println("Enter your city:"); String city = input.nextLine();
         System.out.println("Enter your street name:"); String street = input.nextLine();
-        return (country + "-" + province + "-" + city + "-" + street);
+        return (country + "-"  + "-" + city + "-" + street);
     }
 
     private static exceptions.Gender fillGender() {
@@ -173,16 +214,7 @@ public class Guest implements Payable {
             else return pref;
         }
     }
+
     public String getUsername() { return this.username; }
-
-    @Override
-    public void processPayment(double amount, exceptions.PaymentMethod method) {
-
-    }
+    @Override public void processPayment(double a, exceptions.PaymentMethod m) { payInvoice(a); }
 }
-
-
-
-
-
-
